@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { removeDuplicates } from '../../lib/utils';
 
 export const selectAllServices = state => state.services;
 
@@ -9,12 +10,12 @@ export const selectServices = createSelector(
 
 export const selectServicesCategories = createSelector(
 	[selectAllServices],
-	({ categories }) => categories
+	({ categories }) => removeDuplicates(categories)
 );
 
 export const selectServicesItems = createSelector(
 	[selectAllServices],
-	({ servicesItem }) => servicesItem
+	({ servicesNames }) => servicesNames
 );
 
 export const selectServicesStatus = createSelector(

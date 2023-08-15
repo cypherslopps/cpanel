@@ -46,7 +46,7 @@ function Home() {
             {Object.entries(companyFeatures).map(([key, data]) => (
               <div className={`${key === "first" ? "md:mt-4" : ""} space-y-3 lg:space-y-4`}>
                 {data.map(({ Icon, title, content }) => (
-                  <blockquote className='rounded-md bg-gray-100 flex flex-col items-center gap-y-4 md:gap-y-5 py-4 md:py-6 px-3 xxs:px-2 md:px-3 xl:px-4 group transition-all duration-200 hover:scale-[1.02] hover:cursor-pointer hover:bg-black shadow-md shadow-gray-50'>
+                  <blockquote key={title} className='rounded-md bg-gray-100 flex flex-col items-center gap-y-4 md:gap-y-5 py-4 md:py-6 px-3 xxs:px-2 md:px-3 xl:px-4 group transition-all duration-200 hover:scale-[1.02] hover:cursor-pointer hover:bg-black shadow-md shadow-gray-50'>
                     <Icon className='w-9 h-9 stroke-secondary-300 group-hover:stroke-secondary-500' />
 
                     <div className='space-y-1 md:space-y-2 text-center'>

@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Cookies from 'js-cookie';
 import { 
     DashboardNavigation,
     DashboardSidebar,
@@ -18,6 +19,12 @@ const TicketSupport = lazy(() => import("./TicketSupport"));
 function Dashboard() {
     // Fetch services
     useFetch();
+
+    // Redirect user to login if token doesn't exits
+    const token = Cookies.get("token");
+
+    if(!token) 
+        return (<Navigate to="/accounts/login" replace />);
     
     return (
         <main className="md:grid md:grid-cols-dashboard-md lg:grid-cols-dashboard-lg xl:grid-cols-dashboard-xl relative">

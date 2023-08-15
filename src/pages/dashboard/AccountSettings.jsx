@@ -3,8 +3,12 @@ import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@tremor/react";
 import { DashboardHeading, Input, Button, ProtectedRoute } from '../../components'
 import useForm from '../../hooks/useForm';
 import { validateEmail, validateText, validatePassword, validateAPIKey, isValid } from '../../lib/validation';
+import { useAuth } from '../../providers/AuthProvider';
+import { useEffect } from 'react';
 
 function AccountSettings() {
+    const { user } = useAuth();
+
     const {
         formInputs: personalInfo, 
         setFormInputs: setPersonalInfo, 
@@ -35,7 +39,18 @@ function AccountSettings() {
 
     const [personalInfoLoadingState, setPersonalInfoLoadingState] = useState(false);
     const [passwordLoadingState, setPasswordLoadingState] = useState(false);
-    const [apiLoadingState, setApiLoadingState] = useState(false);
+    const [apiLoadingState, setApiLoadingState] = useState(false); 
+
+    // Set user data
+    useEffect(() => {
+        if(Object.values(user)) {
+            setPersonalInfo({
+                ...personalInfo,
+                email: user.email,
+                username: user.username
+            });
+        }
+    }, [user])
 
     // Update Personal Details
     async function updatePersonalDetails(e) {

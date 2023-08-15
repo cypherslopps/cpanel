@@ -3,7 +3,8 @@ import {
     Routes, 
     Route, 
     Link, 
-    useLocation, 
+    useLocation,
+    Navigate, 
 } from "react-router-dom";
 import { Title, Subtitle } from '@tremor/react';
 import { 
@@ -11,6 +12,7 @@ import {
     AlignVerticalJustifyCenter,
     Fingerprint,
 } from 'lucide-react';
+import Cookies from 'js-cookie';
 import Login from './Login';
 import Register from './Register';
 import ForgotPassword from './ForgotPassword';
@@ -25,6 +27,12 @@ function Accounts() {
     const { pathname } = useLocation();
     let headerContent = null;
     let footerContent = null;
+
+    // Redirect user to dashboard if token exits
+    const token = Cookies.get("token");
+
+    if(token) 
+        return <Navigate to="/dashboard" replace />
 
     if(checkPath("login", pathname)) {
         headerContent = (

@@ -27,3 +27,15 @@ export function getCurrentPath() {
     
     return parsedPath;
 }
+
+export function removeDuplicates(data) {
+    const formattedData = [];
+    
+    data.map(dt => {
+        if(formattedData.includes(dt)) return;
+
+        formattedData.push(dt);
+    });
+
+    return formattedData;
+}

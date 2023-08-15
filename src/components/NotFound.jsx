@@ -15,7 +15,7 @@ const NotFound = () => {
       {/* Content */}
       <div className='flex flex-col items-center gap-0.5'>
         <Heading size="sm" className="text-black">We've lost this page</Heading>
-        <p className='text-sm sm:text-md text-gray-800 text-center'>Sorry, the page you're looking for doesn't exist or has been moved</p>
+        <p className='text-sm sm:text-md text-gray-700 text-center'>Sorry, the page you're looking for doesn't exist or has been moved</p>
       </div>
     </div>
   )

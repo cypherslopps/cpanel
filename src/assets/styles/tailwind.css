@@ -62,14 +62,17 @@
     .before-border-b-animated:hover:before {
         transform: scaleX(1);
     }
-
+ 
     .services-select button,
-    .services-select button:hover {
+    .services-select button:hover,
+    .orders-select button,
+    .orders-select button:hover {
         background-color: rgb(30, 41, 59, 1);
         color: white;
     }
 
-    .services-select button svg {
+    .services-select button svg,
+    .orders-select button svg {
         stroke: white;
     }
 

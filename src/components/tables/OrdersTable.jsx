@@ -71,7 +71,6 @@ const OrdersTable = ({ userRequests }) => {
                 style={{ padding: "0 .3rem" }}
                 pageSizeOptions={[5]}
                 disableRowSelectionOnClick
-                filterMode="server"
                 autoHeight
                 initialState={{
                     pagination: {

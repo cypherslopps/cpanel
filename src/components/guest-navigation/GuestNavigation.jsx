@@ -12,7 +12,7 @@ const GuestNavigation = ({ variant="transparent" }) => {
 
     return (
         <nav className={`navigation w-full flex justify-center fixed top-0 left-0 z-50 transition-all duration-75 border-b border-transparent ${scrollIsActive ? "bg-clip-padding backdrop-filter border-secondary-500/10 backdrop-blur-xl bg-opacity-60 bg-[linear-gradient(180deg,_#114158 0%,_rgba(17,_65,_88,_0.8)_42.19%,_rgba(17,_65,_88,_0.3)_100%)]" : ""} ${variant === "transparent" ? "" : "shadow"}`}>
-            <div className="wrapper flex justify-between py-4 md:py-5 px-2 xs:px-1 md:px-3 w-[96%] lg:w-11/12">
+            <div className={`wrapper flex justify-between ${scrollIsActive ? "py-3.5 md:py-4" : "py-4 md:py-5 px-2 xs:px-1 md:px-3"} w-[96%] lg:w-11/12`}>
                 <div className='flex items-center gap-x-4 md:gap-x-5 lg:gap-x-7'>
                     <Link to="/" className={`text-[1.4rem] xs:text-2xl font-extrabold leading-none ${variant === "transparent" ? "text-white text-shadow" : "text-gray-900"}`}>{APP_NAME}</Link>
 

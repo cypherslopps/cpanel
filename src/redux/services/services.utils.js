@@ -1,51 +1,43 @@
-export function getServicesCategories(services) {
-    const data = Object.assign({}, services);
-    const dataEntries = Object.entries(data);
-    const categories = dataEntries.map(([category]) => category);
+// export function getServicesCategories(services) {
+//     const data = Object.assign({}, services);
+//     const dataEntries = Object.entries(data);
+//     const categories = dataEntries.map(([category]) => category);
     
-    return categories;
-}
+//     return categories;
+// }
 
-export function getAllServicesItem(services) {
-    const data = Object.assign({}, services);
-    const dataEntries = Object.entries(data);
-    const allServices = dataEntries
-        .map(([,data]) => data)
-        .flat()
-        .map(data => data.service);
+// export function getAllServicesItem(services) {
+//     const data = Object.assign({}, services);
+//     const dataEntries = Object.entries(data);
+//     const allServices = dataEntries
+//         .map(([,data]) => data)
+//         .flat()
+//         .map(data => data.service);
     
-    return allServices;
-}
+//     return allServices;
+// }
 
 export function filterServicesItemByCategory(services, category) {
-	const servicesItem = getAllServicesItem(services);
-    const filteredServices = servicesItem.filter(service => service.includes(category));
-
-    return filteredServices;
+	const servicesItem = [].concat(services);
+    const filteredServicesNames = 
+        servicesItem
+            .filter(service => service.title.includes(category))
+            .map(service => service.name);
+            
+    return filteredServicesNames;
 }
 
 export function searchServicesByQuery(services, query) {
-	const data = Object.assign({}, services);
-	const servicesEntries = Object.entries(data);
-    const servicesCategoryData = servicesEntries.map(([, data]) => data).flat();
-    const servicesCategory = servicesEntries.map(([key]) => key);
-    const existingServices = servicesCategoryData.filter(({ service }) => service.toLowerCase().includes(query.toLowerCase()));
-    const serviceType = servicesCategory.filter(name => query.toLowerCase().includes(name))[0];
-
-    if(serviceType && existingServices)
-        return {[serviceType]: existingServices};
-    else    
-        return null;
+	const servicesItem = [].concat(services);
+    const existingServices = servicesItem.filter(({ name }) => name.toLowerCase().includes(query.toLowerCase()));
+    
+    return existingServices;
 }
 
 
 export function getServiceMinMaxValues(services, serviceName) {
-    const data = Object.assign({}, services);
-    const servicesEntries = Object.entries(data);
-    const service = servicesEntries
-        .map(([,data]) => data)
-        .flat()
-        .filter(data => data.service.toLowerCase() === serviceName.toLowerCase())[0];
+    const servicesItem = [].concat(services);
+    const service = servicesItem.filter(service => service.name.toLowerCase() === serviceName.toLowerCase())[0];
         
     return {
         max: service.max_order ?? 0, 

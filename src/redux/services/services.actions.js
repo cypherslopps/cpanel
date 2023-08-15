@@ -38,7 +38,7 @@ export const getServiceMinMaxValues = service => ({
 // 		dispatch(fetchAllServicesPending());
 
 // 		// Await response
-// 		axios.get(`${getServicesApi}`)
+// 		axios.get('/services')
 // 			.then(({ data }) => {
 // 				dispatch(fetchAllServicesSuccess({
 // 					services: data,

@@ -5,7 +5,7 @@ import { Loader2 } from 'lucide-react';
 
 
 export const buttonVariants = cva(
-    'active:scale-95 inline-flex items-center gap-x-2 justify-center rounded-md text-[.84rem] sm:text-sm font-medium cursor-pointer transition-colors focus:outline-none disabled:opacity-50 disabled:pointer-events-none',
+    'active:scale-95 inline-flex items-center gap-x-2 justify-center rounded-md text-[.84rem] sm:text-sm font-medium cursor-pointer transition-colors focus:outline-none disabled:opacity-70 disabled:pointer-events-none',
     {
       variants: {
         variant: {
@@ -53,6 +53,7 @@ const Button = forwardRef(({
     className, 
     variant, 
     isLoading,
+    disabled,
     size, 
     width,
     ...props 
@@ -61,6 +62,8 @@ const Button = forwardRef(({
     <button
         ref={ref}
         {...props}
+        disabled={disabled}
+        aria-disabled={disabled}
         className={`
           ${cn(buttonVariants({
             variant, size, width, className

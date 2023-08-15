@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
+import { axios } from '../../lib/axios';
 import { Input } from '../../components'
 import Button from '../../components/ui/Button';
 import { validatePassword, validateEmail, validateText, isValid } from '../../lib/validation';
 import useForm from '../../hooks/useForm';
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
+    const navigate = useNavigate();
     const {formInputs: register, setFormInputs: setRegister, handleChange} = useForm({
         username: "",
         email: "",
@@ -16,8 +19,9 @@ function Register() {
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [confirmPasswordError, setConfirmPasswordError] = useState("");
+    const [requestError, setRequestError] = useState("");
 
-    function registerUser(e) {
+    async function registerUser(e) {
         e.preventDefault();
         
         if(isValid(register) && !emailError && !passwordError && !usernameError && !confirmPasswordError) {
@@ -25,7 +29,13 @@ function Register() {
             setIsLoading(true);
 
             try {
-
+                const response = await axios.post("/register", register);
+                const data = response.data;
+                
+                if(data.auth)
+                    setTimeout(() => navigate("/accounts/login"), 100);
+                else
+                 setRequestError(data.message);
             } catch(e) {
                 return e 
             } finally {
@@ -34,15 +44,19 @@ function Register() {
         }
     }
 
+    console.log(requestError, "request error")
+
     return (
         <form className='flex flex-col gap-y-3.5' onSubmit={registerUser}>
+            {requestError && <p>{requestError}</p>}
+
             <Input 
                 label="Username"
                 name="username"
                 placeholder="Enter your username"
                 error={usernameError}
                 onChange={handleChange}
-                onBlur={() => validateText(register.username, setUsernameError, "Username field can't be empty", /^[^\d][\w]{5,}$/)}
+                onBlur={() => validateText(register.username, setUsernameError, "Username field can't be empty", /^[^\d][\w]{3,}$/)}
                 value={register.username}
             />
 

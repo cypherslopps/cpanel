@@ -1,6 +1,6 @@
 export const APP_NAME = "Placeholder";
 
-export const API_URL = "http://localhost:5000";
+export const API_URL = "http://localhost:7004/api";
 
 // Authentication API
 export const loginAuthApi = `${API_URL}/login`;

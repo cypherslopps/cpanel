@@ -18,7 +18,7 @@ function Services({ categories, services }) {
         description="heading"
       />
 
-<main className='mt-20 pb-2 sm:pb-4 space-y-4 md:space-y-5 p-1'>
+      <main className='mt-20 pb-2 sm:pb-4 space-y-4 md:space-y-5 p-1'>
         <header className='grid grid-cols-1 gap-y-1.5 sm:grid-cols-[15vw,1fr] gap-x-4 sm:gap-x-14 md-lg:gap-x-14 lg:gap-x-8 bg-gray-100/60 border border-gray-200/80 p-2 md:p-3'>
           <Input 
             type="select"

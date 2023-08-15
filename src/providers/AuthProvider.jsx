@@ -1,7 +1,7 @@
 import { createContext, useState, useContext } from "react";
 import { axios } from "../lib/axios";
-import { logoutAuthApi } from "../config";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext({
     user: false,
@@ -13,6 +13,7 @@ export const AuthContext = createContext({
 });
 
 export const AuthProvider = ({ children }) => {
+    const navigate = useNavigate();
     const [user, setUser] = useState({
         funds: 0
     });
@@ -20,29 +21,43 @@ export const AuthProvider = ({ children }) => {
     const setNewUser = (newUser) => setUser(newUser); 
 
     // Login
-    const loginUserRequest = (user) => {
-        axios.post("/login", user)
-            .then(res => {
-                if(res.status === "success") {
-                    Cookies.set(
-                        "token", 
-                        res.token, 
-                        { secure: true }
-                    );
-                }
-            })
+    const loginUserRequest = async (loginData, setError) => {
+        const response = await axios.post("/login", loginData)
+        const data = response.data;
+
+        if(data.auth) {
+            // Set token
+            Cookies.set("token", data.token);
+
+            const userData = data.result[0];
+
+            // Set user
+            setUser({
+                ...user,
+                ...userData
+            });
+
+            // Redirect user to dashboard
+            navigate("/dashboard")
+        } else {
+            setError(data.message);
+        }
     }  
 
     // Logout
     const logout = () => {
-        axios.get(logoutAuthApi)
+        axios.get('/logout')
             .then(({ data }) => {
-                if(data.success) {
+                console.log(data);
+                if(data.status) {
                     // Empty current user data
                     setNewUser({});
 
                     // Delete token
-                    sessionStorage.removeItem("token");
+                    Cookies.remove("token");
+
+                    // Redirect to login
+                    navigate('/accounts/login');
                 }
             }).catch(error => error);
     }
@@ -70,5 +85,5 @@ export const useAuth = () => {
       );
     }
   
-    return AuthContext;
+    return authContext;
 }

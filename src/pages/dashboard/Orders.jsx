@@ -9,22 +9,21 @@ import {
 } from "@tremor/react";
 import { FilterX } from "lucide-react"
 import { OrdersTable, FormSearch, Input, ProtectedRoute } from '../../components';
-import { user } from '../../lib/data';
 import { selectServicesCategories } from '../../redux/services/services.selectors';
 import { selectAllOrders } from '../../redux/orders/orders.selectors';
  
 const orderCategories = [
   {
-    title: "Sales",
-    metric: "$ 23,456",
+    title: "Welcome to our panel",
+    metric: "Cypherslopps",
   },
   {
-    title: "Profit",
-    metric: "$ 13,123",
+    title: "Balance spent",
+    metric: "$ 0.00",
   },
   {
-    title: "Customers",
-    metric: "456",
+    title: "Panel orders",
+    metric: "0",
   },
 ];
 
@@ -61,7 +60,7 @@ function Orders({ categories, orders }) {
           </header>
 
           {/* Table */}
-          <OrdersTable userRequests={user} />
+          <OrdersTable userRequests={orders} />
         </section>
       </div>
     </ProtectedRoute>

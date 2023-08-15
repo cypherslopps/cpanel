@@ -1,6 +1,4 @@
 import { 
-	getServicesCategories, 
-	getAllServicesItem, 
 	filterServicesItemByCategory ,
 	searchServicesByQuery,
 	getServiceMinMaxValues
@@ -9,8 +7,8 @@ import { servicesData } from './services.data';
 import ServicesActionTypes from './services.types';
 
 const initialState = {
-	services: {},
-	servicesItem: [],
+	services: [],
+	servicesNames: [],
 	categories: [],
 	minmax: {
 		min: 0,
@@ -33,9 +31,9 @@ function servicesReducer(state = initialState, action) {
 		case ServicesActionTypes.FETCH_SERVICES_SUCCESS:
 			return {
 				...state,
-				services: Object.assign({}, servicesData),
-				categories: getServicesCategories(servicesData),
-				servicesItem: getAllServicesItem(servicesData),
+				services: [].concat(servicesData),
+				categories: [...servicesData].map(service => service.title),
+				servicesNames: [...servicesData].map(service => service.name),
 				minmax: Object.assign({}, {
 					min: 0,
 					max: 0
@@ -51,7 +49,7 @@ function servicesReducer(state = initialState, action) {
 		case ServicesActionTypes.FILTER_SERVICES_ITEMS_BY_CATEGORY:
 			return {
 				...state,
-				servicesItem: filterServicesItemByCategory(state.services, action.payload),				
+				servicesNames: filterServicesItemByCategory(state.services, action.payload),				
 			}
 		case ServicesActionTypes.SEARCH_SERVICES_QUERY:
 			return {

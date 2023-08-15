@@ -10,7 +10,7 @@ export const validatePassword = (value, setError, ...rest) => {
 
     if(!value)
         setError("Password can't be empty")
-    else if(!(/^[A-Z][\w!@#$%^&*)(+=.<>}{][:;'"|~`_-]{6,}$/g).exec(value))
+    else if(!(/^[A-Z][\w!@#$%^&*)(+=.<>}{\][:;'"|~`_-]{6,}$/g).exec(value))
         setError("Password strength is weak");
     else if(type === "confirm" && value !== passwordValue)
         setError("Password doesn't match");
